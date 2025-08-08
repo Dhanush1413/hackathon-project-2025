@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
+const SuggestionPage = React.lazy(() => import('./components/SuggestionPage'));
 import { Dashboard } from './components/Dashboard';
 import { WasteTracking } from './components/WasteTracking';
 import { Marketplace } from './components/Marketplace';
@@ -11,13 +12,14 @@ import { Settings } from './components/Settings';
 import { Sidebar } from './components/Sidebar';
 import { Header } from './components/Header';
 
-type Page = 'dashboard' | 'tracking' | 'marketplace' | 'product-detail' | 'cart' | 'checkout' | 'vendor-upload' | 'analytics' | 'settings';
+type Page = 'dashboard' | 'tracking' | 'marketplace' | 'product-detail' | 'cart' | 'checkout' | 'vendor-upload' | 'analytics' | 'settings' | 'suggestion';
 
 function App() {
   const [currentPage, setCurrentPage] = useState<Page>('dashboard');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [selectedProductId, setSelectedProductId] = useState<number | null>(null);
   const [cartItems, setCartItems] = useState<any[]>([]);
+  const [showSuggestion, setShowSuggestion] = useState(true);
 
   const renderPage = () => {
     switch (currentPage) {
@@ -39,6 +41,8 @@ function App() {
         return <Analytics />;
       case 'settings':
         return <Settings />;
+      case 'suggestion':
+        return <Suspense fallback={<div>Loading...</div>}><SuggestionPage showSuggestion={showSuggestion} onClose={() => setShowSuggestion(false)} /></Suspense>;
       default:
         return <Dashboard />;
     }

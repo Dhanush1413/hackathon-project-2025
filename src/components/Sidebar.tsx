@@ -23,6 +23,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     { id: 'vendor-upload', label: 'Upload Product', icon: Upload },
     { id: 'analytics', label: 'Analytics', icon: TrendingUp },
     { id: 'settings', label: 'Settings', icon: Settings },
+    { id: 'suggestion', label: 'Suggestion', icon: Leaf },
   ];
 
   const handlePageChange = (page: string) => {
